@@ -1,41 +1,34 @@
 use rppal::gpio::Gpio;
+use std::error::Error;
 use std::thread;
 use std::time::Duration;
 mod motor;
-use crate::motor::motor::Motor;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Initializing GPIO...");
+mod robot;
+use motor::Motor;
+use robot::Robot;
+fn main() -> Result<(), Box<dyn Error>> {
     let gpio = Gpio::new()?;
+    let mut robot = Robot::new(&gpio, "Rusty".to_string())?;
 
-    // left motor
-    let mut left_motor = Motor::new(&gpio, 7, 8)?;
-    // right motor
-    let mut right_motor = Motor::new(&gpio, 9, 10)?;
-
-    println!("Both motors forward for 2 seconds...");
-
-    // Set left motor
-    left_motor.forward();
-
-    // set right motor
-    right_motor.forward();
-
-    // wait (both running)
+    robot.forward();
     thread::sleep(Duration::from_secs(2));
 
-    println!("Stopping both...");
-    left_motor.stop();
-    right_motor.stop();
+    robot.spin_left();
+    thread::sleep(Duration::from_secs(1));
 
-    // Set left motor
-    left_motor.backward();
-    // set right motor
-    right_motor.backward();
-    // wait (both running)
+    robot.spin_right();
+    thread::sleep(Duration::from_secs(1));
+
+    robot.backward();
     thread::sleep(Duration::from_secs(2));
-    left_motor.stop();
-    right_motor.stop();
+
+    robot.turn_right();
+    thread::sleep(Duration::from_secs(2));
+
+    robot.turn_left();
+    thread::sleep(Duration::from_secs(2));
+
+    robot.stop();
 
     Ok(())
 }
