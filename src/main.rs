@@ -7,12 +7,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let gpio = Gpio::new()?;
 
     // left motor
-    let mut left_forward = gpio.get(7)?.into_output();
-    let mut left_backward = gpio.get(8)?.into_output();
+    let mut left_backward = gpio.get(7)?.into_output();
+    let mut left_forward = gpio.get(8)?.into_output();
 
     // right motor
-    let mut right_forward = gpio.get(9)?.into_output();
-    let mut right_backward = gpio.get(10)?.into_output();
+    let mut right_backward = gpio.get(9)?.into_output();
+    let mut right_forward = gpio.get(10)?.into_output();
 
     println!("Left motor forward for 2 seconds...");
     left_forward.set_high();
