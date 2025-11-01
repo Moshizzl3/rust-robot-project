@@ -66,9 +66,6 @@ An embedded Rust project building a fully autonomous robot using a Raspberry Pi 
 4. Successfully controlled individual motors
 5. Made both motors run simultaneously
 
-**Hardware Reality Check:**
-Documentation said one thing, hardware did another. This taught an important lesson: **always verify with real hardware testing**. Wrote simple test code to validate each motor direction independently before trusting the docs.
-
 **What Works Now:**
 - Individual motor control (forward/backward/stop)
 - Simultaneous dual motor operation
@@ -76,7 +73,6 @@ Documentation said one thing, hardware did another. This taught an important les
 
 **Challenges Faced:**
 - Initial confusion between physical pin numbers and BCM GPIO numbering
-- CamJam documentation had reversed pin labels for our motor configuration
 - Understanding why both motors started when we expected only one (needed to explicitly set unused motor pins LOW)
 
 **Key Code Insight:**
@@ -87,16 +83,16 @@ Motor control is instantaneous - `set_high()` and `set_low()` execute in microse
 **Pin Numbering:** Using BCM GPIO numbers (not physical pin positions)
 
 **Left Motor:**
-- Forward: GPIO 7 (Physical Pin 26)
-- Backward: GPIO 8 (Physical Pin 24)
+- Backward: GPIO 7 (Physical Pin 26)
+- Forward: GPIO 8 (Physical Pin 24)
 
 **Right Motor:**
-- Forward: GPIO 9 (Physical Pin 21)
-- Backward: GPIO 10 (Physical Pin 19)
+- Backward: GPIO 9 (Physical Pin 21)
+- Forward: GPIO 10 (Physical Pin 19)
 
 **Power:**
 - Motor controller powered by 4x AA battery pack (separate from Pi)
-- Pi powered via USB-C
+- Pi powered via USB-C + powerbank
 
 ## Current Implementation
 
@@ -147,7 +143,6 @@ sudo ./target/debug/robot_controller
 
 ### Practical Lessons
 
-- **Documentation isn't always accurate** - test your hardware empirically
 - **Start with the simplest possible test** - one motor, full speed, no PWM
 - **Physical pin numbers ≠ GPIO numbers** - always clarify which you're using
 - **Hardware debugging is different** - can't just add print statements, need to verify electrical state
