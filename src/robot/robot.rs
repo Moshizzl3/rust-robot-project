@@ -1,16 +1,18 @@
-use std::error::Error;
+use std::{error::Error, thread, time::Duration};
 
 use rppal::gpio::Gpio;
 
-use crate::motor::Motor;
+use crate::{motor::Motor, robot::LineSensor};
 
 const LEFT_MOTOR_PINS: (u8, u8) = (7, 8);
 const RIGHT_MOTOR_PINS: (u8, u8) = (9, 10);
+const LINE_SENSOR_PIN: u8 = 25;
 
 pub struct Robot {
     pub name: String,
     left_motor: Motor,
     right_motor: Motor,
+    line_sensor: LineSensor,
 }
 
 impl Robot {
@@ -19,6 +21,7 @@ impl Robot {
             name,
             left_motor: Motor::new(gpio, LEFT_MOTOR_PINS.0, LEFT_MOTOR_PINS.1)?,
             right_motor: Motor::new(gpio, RIGHT_MOTOR_PINS.0, RIGHT_MOTOR_PINS.1)?,
+            line_sensor: LineSensor::new(gpio, LINE_SENSOR_PIN)?,
         })
     }
 
@@ -61,5 +64,22 @@ impl Robot {
         println!("{} stoping now..", self.name);
         self.left_motor.stop();
         self.right_motor.stop();
+    }
+
+    pub fn follow_line(&mut self) {
+        if self.line_sensor.is_on_line() {
+            self.forward();
+        } else {
+            self.turn_right();
+        }
+    }
+    pub fn follow_line_pulse(&mut self, duration_ms: u64) {
+        if self.line_sensor.is_on_line() {
+            self.forward();
+            thread::sleep(Duration::from_millis(duration_ms));
+            self.stop();
+        } else {
+            self.turn_right();
+        }
     }
 }
