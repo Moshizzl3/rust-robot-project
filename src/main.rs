@@ -22,10 +22,6 @@ const PULSE_MAX_US: u64 = 1800;
 fn main() -> Result<(), Box<dyn Error>> {
     let mut pin = Gpio::new()?.get(GPIO_PWM)?.into_output();
 
-    // Enable software-based PWM with the specified period, and rotate the servo by
-    // setting the pulse width to its maximum value.
-
-    // Rotate the servo to the opposite side.
     pin.set_pwm_frequency(1000.0, 0.50)?;
 
     thread::sleep(Duration::from_millis(1500));
