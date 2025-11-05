@@ -25,39 +25,39 @@ impl Robot {
         })
     }
 
-    pub fn forward(&mut self) {
+    pub fn forward(&mut self, speed: f64) {
         println!("{} driving forward..", self.name);
-        self.left_motor.forward();
-        self.right_motor.forward();
+        self.left_motor.forward(speed);
+        self.right_motor.forward(speed);
     }
-    pub fn backward(&mut self) {
+    pub fn backward(&mut self, speed: f64) {
         println!("{} driving backwards..", self.name);
-        self.left_motor.backward();
-        self.right_motor.backward();
+        self.left_motor.backward(speed);
+        self.right_motor.backward(speed);
     }
 
     pub fn turn_right(&mut self) {
         println!("{} turning right..", self.name);
-        self.left_motor.forward();
-        self.right_motor.stop();
+        self.left_motor.forward(0.5);
+        self.right_motor.forward(0.2);
     }
 
     pub fn turn_left(&mut self) {
         println!("{} turning left..", self.name);
-        self.right_motor.forward();
-        self.left_motor.stop();
+        self.right_motor.forward(0.5);
+        self.left_motor.forward(0.2);
     }
 
     pub fn spin_left(&mut self) {
         println!("{} spinning left..", self.name);
-        self.right_motor.forward();
-        self.left_motor.backward();
+        self.right_motor.forward(0.5);
+        self.left_motor.backward(0.5);
     }
 
     pub fn spin_right(&mut self) {
         println!("{} spinning right..", self.name);
-        self.left_motor.forward();
-        self.right_motor.backward();
+        self.left_motor.forward(0.5);
+        self.right_motor.backward(0.5);
     }
 
     pub fn stop(&mut self) {
@@ -66,18 +66,9 @@ impl Robot {
         self.right_motor.stop();
     }
 
-    pub fn follow_line(&mut self) {
+    pub fn follow_line(&mut self, speed: f64) {
         if self.line_sensor.is_on_line() {
-            self.forward();
-        } else {
-            self.turn_right();
-        }
-    }
-    pub fn follow_line_pulse(&mut self, duration_ms: u64) {
-        if self.line_sensor.is_on_line() {
-            self.forward();
-            thread::sleep(Duration::from_millis(duration_ms));
-            self.stop();
+            self.forward(speed);
         } else {
             self.turn_right();
         }
