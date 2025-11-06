@@ -39,14 +39,14 @@ impl Robot {
 
     pub fn turn_right(&mut self) -> Result<()> {
         println!("{} turning right..", self.name);
-        self.left_motor.forward(0.5)?;
-        self.right_motor.forward(0.2)?;
+        self.left_motor.forward(0.7)?;
+        self.right_motor.stop()?;
         Ok(())
     }
 
     pub fn turn_left(&mut self) -> Result<()> {
         println!("{} turning left..", self.name);
-        self.right_motor.forward(0.5)?;
+        self.right_motor.forward(0.7)?;
         self.left_motor.forward(0.2)?;
         Ok(())
     }

@@ -1,7 +1,7 @@
 use anyhow::{Context, Result};
 use rppal::gpio::{Gpio, OutputPin};
 
-const FREQUENCY: f64 = 2000.0;
+const FREQUENCY: f64 = 1000.0;
 
 /// Represents a DC motor controlled by two GPIO pins
 pub struct Motor {
