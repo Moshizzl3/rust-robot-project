@@ -3,12 +3,15 @@
 version = 4
 
 [[package]]
+<<<<<<< HEAD
 name = "anyhow"
 version = "1.0.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
 
 [[package]]
+=======
+>>>>>>> origin/main
 name = "libc"
 version = "0.2.177"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -18,7 +21,10 @@ checksum = "2874a2af47a2325c2001a6e6fad9b16a53b802102b528163885171cf92b15976"
 name = "robot_controller"
 version = "0.1.0"
 dependencies = [
+<<<<<<< HEAD
  "anyhow",
+=======
+>>>>>>> origin/main
  "rppal",
 ]
 
