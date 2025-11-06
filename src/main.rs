@@ -11,20 +11,14 @@ use anyhow::Result;
 
 fn main() -> Result<()> {
     let gpio = Gpio::new()?;
-    let mut robot = Robot::new(&gpio, "rusty".to_string())?;
 
-    println!("Forward at 50%");
-    robot.forward(0.5)?;
-    thread::sleep(Duration::from_secs(2));
+    let trigger_pin = gpio.get(17)?.into_input();
+    let echo_pin = gpio.get(18)?.into_output();
 
-    println!("forward at 100%");
-    robot.forward(1.0)?;
-    thread::sleep(Duration::from_secs(2));
+    loop {
+        println!("wooow: {}", trigger_pin.is_high());
+        println!("wooow: {}", echo_pin.)
+    }
 
-    println!("Backward at 30%");
-    robot.backward(0.5)?;
-    thread::sleep(Duration::from_secs(2));
-
-    robot.stop()?;
     Ok(())
 }
