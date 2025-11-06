@@ -3,6 +3,9 @@ use rppal::gpio::Gpio;
 use std::thread;
 use std::time::Duration;
 
+mod motor;
+mod robot;
+
 fn main() -> Result<()> {
     let gpio = Gpio::new()?;
 
